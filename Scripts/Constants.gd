@@ -7,6 +7,7 @@ enum ActionType {
 	JUMP,
 	MOVE,
 	RECOIL,
+	DASH
 }
 
 enum UnitCondition {
@@ -25,6 +26,7 @@ enum UnitCurrentAction {
 enum UnitMovingStatus {
 	IDLE,
 	MOVING,
+	DASHING,
 }
 
 enum PlayerInput {
@@ -61,6 +63,7 @@ enum SpriteClass {
 	WALK,
 	JUMP,
 	RECOIL,
+	DASH
 }
 
 const UNIT_TYPE_ACTIONS = {
@@ -68,10 +71,19 @@ const UNIT_TYPE_ACTIONS = {
 		ActionType.JUMP,
 		ActionType.MOVE,
 		ActionType.RECOIL,
+		ActionType.DASH
 	],
 	UnitType.NPC: [
 		ActionType.MOVE,
 	],
+}
+
+# in seconds
+const ACTION_TIMERS = {
+	UnitType.PLAYER: {
+		ActionType.DASH: 0.25
+	},
+	UnitType.NPC: {}
 }
 
 const UNIT_TYPE_CURRENT_ACTIONS = {
@@ -106,6 +118,7 @@ const CURRENT_ACTION_TIMERS = {
 		UnitCurrentAction.JUMPING: 0.4,
 		UnitCurrentAction.RECOILING: 0.67,
 	},
+	UnitType.NPC: {}
 }
 
 const UNIT_CONDITION_TIMERS = {
@@ -168,6 +181,7 @@ const UNIT_SPRITES = {
 		SpriteClass.WALK: [true, ["Walk"]],
 		SpriteClass.JUMP: [false, ["Jump1", "Jump2"]],
 		SpriteClass.RECOIL: [false, ["Recoil"]],
+		SpriteClass.DASH: [true, ["Dash"]]
 	},
 	UnitType.NPC: {
 		SpriteClass.IDLE: [false, ["Idle"]],
@@ -180,6 +194,7 @@ const UNIT_TYPE_MOVE_SPEEDS = {
 	UnitType.PLAYER: 6,
 	UnitType.NPC: 3,
 }
+const DASH_SPEED = 9
 
 const UNIT_TYPE_JUMP_SPEEDS = {
 	UnitType.PLAYER: 5,

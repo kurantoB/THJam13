@@ -35,6 +35,8 @@ var time_elapsed : float
 var is_flash : bool = false
 var flash_start_timestamp : float
 
+var timer_actions = {}
+
 # Called when the node enters the scene tree for the first time
 func _ready():
 	for action_num in Constants.UNIT_TYPE_ACTIONS[unit_type]:
@@ -56,6 +58,9 @@ func _ready():
 	position.y = position.y * Constants.SCALE_FACTOR
 	scale.x = Constants.SCALE_FACTOR
 	scale.y = Constants.SCALE_FACTOR
+	
+	for timer_action_num in Constants.ACTION_TIMERS[unit_type].keys():
+		timer_actions[timer_action_num] = 0
 
 func init_unit_w_scene(scene):
 	self.scene = scene
@@ -63,6 +68,21 @@ func init_unit_w_scene(scene):
 func set_action(action : int):
 	assert(action in Constants.UNIT_TYPE_ACTIONS[unit_type])
 	actions[action] = true
+
+func set_timer_action(action : int):
+	assert(action in Constants.UNIT_TYPE_ACTIONS[unit_type])
+	assert(action in Constants.ACTION_TIMERS[unit_type].keys())
+	timer_actions[action] = Constants.ACTION_TIMERS[unit_type][action]
+
+func do_with_timeout(action : int):
+	if timer_actions[action] == 0:
+		set_action(action)
+		set_timer_action(action)
+
+func reset_timer_action(action : int):
+	assert(action in Constants.UNIT_TYPE_ACTIONS[unit_type])
+	assert(action in Constants.ACTION_TIMERS[unit_type].keys())
+	timer_actions[action] = 0
 
 func set_unit_condition(condition_type : int, condition):
 	assert(condition_type in Constants.UNIT_TYPE_CONDITIONS[unit_type].keys())
@@ -98,6 +118,8 @@ func process_unit(delta, time_elapsed : float):
 	self.time_elapsed = time_elapsed
 
 func advance_timers(delta):
+	for timer_action_num in Constants.ACTION_TIMERS[unit_type].keys():
+		timer_actions[timer_action_num] = move_toward(timer_actions[timer_action_num], 0, delta)
 	for condition_num in Constants.UNIT_CONDITION_TIMERS[unit_type].keys():
 		unit_condition_timers[condition_num] = move_toward(unit_condition_timers[condition_num], 0, delta)
 		if unit_condition_timers[condition_num] == 0:
@@ -111,7 +133,7 @@ func reset_current_action():
 		if not actions[Constants.ActionType.JUMP]:
 			set_current_action(Constants.UnitCurrentAction.IDLE)
 	# process MOVING_STATUS
-	if not actions[Constants.ActionType.MOVE]:
+	if not actions[Constants.ActionType.MOVE] and not (Constants.UNIT_TYPE_ACTIONS[unit_type].find(Constants.ActionType.DASH) != -1 and actions[Constants.ActionType.DASH]):
 		set_unit_condition(Constants.UnitCondition.MOVING_STATUS, Constants.UnitMovingStatus.IDLE)
 
 func handle_input(delta):
@@ -157,6 +179,7 @@ func move():
 	if (get_current_action() == Constants.UnitCurrentAction.IDLE
 	and unit_conditions[Constants.UnitCondition.IS_ON_GROUND]):
 		set_sprite(Constants.SpriteClass.WALK)
+	target_move_speed = Constants.UNIT_TYPE_MOVE_SPEEDS[unit_type]
 
 func handle_recoil():
 	# implemented in subclass

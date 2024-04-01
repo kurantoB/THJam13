@@ -5,6 +5,8 @@ class_name Player
 
 const RECOIL_PUSHBACK = 15
 
+var dash_facing : int
+
 func _init():
 	pos = Vector2(position.x / Constants.GRID_SIZE, -1 * position.y / Constants.GRID_SIZE)
 	position.x = position.x * Constants.SCALE_FACTOR
@@ -19,6 +21,8 @@ func execute_actions(delta):
 			# handle custom actions
 			Constants.ActionType.RECOIL:
 				recoil()
+			Constants.ActionType.DASH:
+				dash()
 			_:
 				pass
 
@@ -90,3 +94,9 @@ func handle_recoil():
 		else:
 			h_speed -= RECOIL_PUSHBACK
 	facing = hit_dir
+
+func dash():
+	set_unit_condition(Constants.UnitCondition.MOVING_STATUS, Constants.UnitMovingStatus.DASHING)
+	target_move_speed = Constants.DASH_SPEED
+	if unit_conditions[Constants.UnitCondition.IS_ON_GROUND]:
+		set_sprite(Constants.SpriteClass.DASH)
