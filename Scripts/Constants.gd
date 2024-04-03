@@ -111,7 +111,7 @@ const UNIT_TYPE_CONDITIONS = {
 # in seconds
 const CURRENT_ACTION_TIMERS = {
 	UnitType.PLAYER: {
-		UnitCurrentAction.JUMPING: 0.4
+		UnitCurrentAction.JUMPING: 0.2
 	},
 	UnitType.NPC: {}
 }
@@ -158,14 +158,14 @@ const INPUT_MAP = {
 
 const TILE_SET_MAP_ELEMS = {
 	"TestTileSet": {
-		MapElemType.SQUARE: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-		MapElemType.SLOPE_LEFT: [15, 16],
-		MapElemType.SLOPE_RIGHT: [17, 18],
-		MapElemType.SMALL_SLOPE_LEFT_1: [9],
-		MapElemType.SMALL_SLOPE_LEFT_2: [10, 11],
-		MapElemType.SMALL_SLOPE_RIGHT_1: [12],
-		MapElemType.SMALL_SLOPE_RIGHT_2: [13, 14],
-		MapElemType.LEDGE: [19, 20, 21, 22],
+		MapElemType.SQUARE: [0],
+		MapElemType.SLOPE_LEFT: [1],
+		MapElemType.SLOPE_RIGHT: [2],
+		MapElemType.SMALL_SLOPE_LEFT_1: [3],
+		MapElemType.SMALL_SLOPE_LEFT_2: [4],
+		MapElemType.SMALL_SLOPE_RIGHT_1: [6],
+		MapElemType.SMALL_SLOPE_RIGHT_2: [5],
+		MapElemType.LEDGE: [7],
 	},
 }
 
@@ -173,9 +173,9 @@ const UNIT_SPRITES = {
 	# Sprite-class: [Is-animation?, Nodes]
 	UnitType.PLAYER: {
 		SpriteClass.IDLE: [false, ["Idle"]],
-		SpriteClass.WALK: [true, ["Walk"]],
-		SpriteClass.JUMP: [false, ["Jump1", "Jump2"]],
-		SpriteClass.DASH: [true, ["Dash"]]
+		SpriteClass.WALK: [false, ["Walk"]],
+		SpriteClass.JUMP: [false, ["Jump1"]],
+		SpriteClass.DASH: [false, ["Dash"]]
 	},
 	UnitType.NPC: {
 		SpriteClass.IDLE: [false, ["Idle"]],
@@ -188,17 +188,17 @@ const UNIT_TYPE_MOVE_SPEEDS = {
 	UnitType.PLAYER: 6,
 	UnitType.NPC: 3,
 }
-const DASH_SPEED = 9
+const DASH_SPEED = 12
 
 const UNIT_TYPE_JUMP_SPEEDS = {
-	UnitType.PLAYER: 5,
+	UnitType.PLAYER: 13,
 }
 
-const SCALE_FACTOR = 3.5
-const GRID_SIZE = 20 # pixels
-const GRAVITY = 30
-const MAX_FALL_SPEED = -12
-const ACCELERATION = 35
+const SCALE_FACTOR = 2.5
+const GRID_SIZE = 16 # pixels
+const GRAVITY = 50
+const MAX_FALL_SPEED = -25
+const ACCELERATION = 45
 const QUANTUM_DIST = 0.001
 const SPAWN_DISTANCE = 10
 const HURT_PAUSE_DURATION = .67 # seconds
