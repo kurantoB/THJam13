@@ -62,6 +62,16 @@ func _ready():
 	for timer_action_num in Constants.ACTION_TIMERS[unit_type].keys():
 		timer_actions[timer_action_num] = 0
 
+func _process(delta):
+	# stop animating sprite if paused
+	if current_sprite is AnimatedSprite:
+		if scene.paused or scene.hurt_pause_timer > 0:
+			if current_sprite.playing:
+				current_sprite.stop()
+		else:
+			if !current_sprite.playing:
+				current_sprite.play()
+
 func init_unit_w_scene(scene):
 	self.scene = scene
 

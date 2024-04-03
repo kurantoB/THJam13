@@ -70,7 +70,6 @@ const UNIT_TYPE_ACTIONS = {
 	UnitType.PLAYER: [
 		ActionType.JUMP,
 		ActionType.MOVE,
-		ActionType.RECOIL,
 		ActionType.DASH
 	],
 	UnitType.NPC: [
@@ -80,9 +79,7 @@ const UNIT_TYPE_ACTIONS = {
 
 # in seconds
 const ACTION_TIMERS = {
-	UnitType.PLAYER: {
-		ActionType.DASH: 0.25
-	},
+	UnitType.PLAYER: {},
 	UnitType.NPC: {}
 }
 
@@ -90,7 +87,6 @@ const UNIT_TYPE_CURRENT_ACTIONS = {
 	UnitType.PLAYER: [
 		UnitCurrentAction.IDLE,
 		UnitCurrentAction.JUMPING,
-		UnitCurrentAction.RECOILING,
 	],
 	UnitType.NPC: [
 		UnitCurrentAction.IDLE,
@@ -115,8 +111,7 @@ const UNIT_TYPE_CONDITIONS = {
 # in seconds
 const CURRENT_ACTION_TIMERS = {
 	UnitType.PLAYER: {
-		UnitCurrentAction.JUMPING: 0.4,
-		UnitCurrentAction.RECOILING: 0.67,
+		UnitCurrentAction.JUMPING: 0.4
 	},
 	UnitType.NPC: {}
 }
@@ -180,7 +175,6 @@ const UNIT_SPRITES = {
 		SpriteClass.IDLE: [false, ["Idle"]],
 		SpriteClass.WALK: [true, ["Walk"]],
 		SpriteClass.JUMP: [false, ["Jump1", "Jump2"]],
-		SpriteClass.RECOIL: [false, ["Recoil"]],
 		SpriteClass.DASH: [true, ["Dash"]]
 	},
 	UnitType.NPC: {
@@ -207,6 +201,7 @@ const MAX_FALL_SPEED = -12
 const ACCELERATION = 35
 const QUANTUM_DIST = 0.001
 const SPAWN_DISTANCE = 10
+const HURT_PAUSE_DURATION = .67 # seconds
 
 # specialized constants
 const FLASH_CYCLE = 0.15

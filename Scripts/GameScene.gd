@@ -20,6 +20,7 @@ export var spawning : Dictionary
 var spawning_map = {} # keeps track of what's alive
 
 var paused : bool = false
+var hurt_pause_timer : float = 0
 
 var units = []
 var player : Player
@@ -68,15 +69,18 @@ func _process(delta):
 	
 	read_paused()
 	if not paused:
-		# game logic
-		process_spawning()
-		for unit in units:
-			unit.reset_actions()
-			unit.handle_input(delta)
-			unit.process_unit(delta, time_elapsed)
-			stage_env.interact(unit, delta)
-			unit.react(delta)
-		time_elapsed += delta
+		if hurt_pause_timer > 0:
+			hurt_pause_timer = max(0, hurt_pause_timer - delta)
+		else:
+			# game logic
+			process_spawning()
+			for unit in units:
+				unit.reset_actions()
+				unit.handle_input(delta)
+				unit.process_unit(delta, time_elapsed)
+				stage_env.interact(unit, delta)
+				unit.react(delta)
+			time_elapsed += delta
 
 func read_paused():
 	if Input.is_action_just_pressed(Constants.INPUT_MAP[Constants.PlayerInput.GBA_START]):
@@ -105,10 +109,7 @@ func process_spawning():
 
 func handle_player_input():
 	# early exit
-	
-	if player.get_current_action() == Constants.UnitCurrentAction.RECOILING:
-		player.set_action(Constants.ActionType.RECOIL)
-		return
+	# N/A
 	
 	for input_num in input_table.keys():
 		if Input.is_action_pressed(Constants.INPUT_MAP[input_num]):
@@ -138,20 +139,10 @@ func handle_player_input():
 		else:
 			input_dir = Constants.Direction.RIGHT
 		if player.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]:
-			if player.unit_conditions[Constants.UnitCondition.MOVING_STATUS] == Constants.UnitMovingStatus.IDLE:
-				if player.timer_actions[Constants.ActionType.DASH] > 0 and player.dash_facing == input_dir:
-					player.set_action(Constants.ActionType.DASH)
-				else:
-					player.set_action(Constants.ActionType.MOVE)
-			elif player.unit_conditions[Constants.UnitCondition.MOVING_STATUS] == Constants.UnitMovingStatus.MOVING:
-				player.set_action(Constants.ActionType.MOVE)
+			if input_table[Constants.PlayerInput.GBA_B][I_T_PRESSED]:
+				player.set_action(Constants.ActionType.DASH)
 			else:
-				if player.facing == input_dir:
-					player.set_action(Constants.ActionType.DASH)
-				else:
-					player.set_action(Constants.ActionType.MOVE)
-			player.dash_facing = input_dir
-			player.set_timer_action(Constants.ActionType.DASH)
+				player.set_action(Constants.ActionType.MOVE)
 		else:
 			if (player.unit_conditions[Constants.UnitCondition.MOVING_STATUS] == Constants.UnitMovingStatus.DASHING
 			and input_dir == player.facing
@@ -159,7 +150,6 @@ func handle_player_input():
 				player.set_action(Constants.ActionType.DASH)
 			else:
 				player.set_action(Constants.ActionType.MOVE)
-				player.reset_timer_action(Constants.ActionType.DASH)
 		# set facing
 		player.facing = input_dir
 	if input_table[Constants.PlayerInput.GBA_A][I_T_PRESSED]:
