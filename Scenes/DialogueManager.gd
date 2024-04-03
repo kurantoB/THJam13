@@ -16,15 +16,16 @@ func _ready():
 	#if test_dialogue != null:
 	#	start_dialogue(test_dialogue)
 
-func start_dialogue(dialogue):
-	current_dialogue = dialogue.text
-	next_dialogue()
+func start_dialogue(dialogues):
+	get_tree().paused = true
+	for dialogue in dialogues.text:
+		current_dialogue.append(dialogue)
+	popup_text.text = current_dialogue.pop_front()
+	anim.play("In")
 	
 func next_dialogue():
 	if not current_dialogue.size() == 0:
 		popup_text.text = current_dialogue.pop_front()
-		anim.play("In")
-		input_available = false
 	else:
 		end_dialogue()
 
@@ -38,7 +39,6 @@ func _input(event):
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "In":
 		input_available = true
-		get_tree().paused = true
 	elif anim_name == "Out":
 		input_available = false
 		get_tree().paused = false
