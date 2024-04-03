@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "Dialogue",
+"language": "GDScript",
+"path": "res://Scripts/UI/Dialogue.gd"
+}, {
 "base": "Node",
 "class": "GameScene",
 "language": "GDScript",
@@ -25,27 +30,39 @@ _global_script_classes=[ {
 "path": "res://Scripts/Units/Player.gd"
 }, {
 "base": "Area2D",
+"class": "TriggerDialogue",
+"language": "GDScript",
+"path": "res://Scripts/UI/TriggerDialogue.gd"
+}, {
+"base": "Area2D",
 "class": "Unit",
 "language": "GDScript",
 "path": "res://Scripts/Unit.gd"
 } ]
 _global_script_class_icons={
+"Dialogue": "",
 "GameScene": "",
 "NPCUnit": "",
 "Player": "",
+"TriggerDialogue": "",
 "Unit": ""
 }
 
 [application]
 
 config/name="Kinematically Reinterpreted Implementation Needing Godot Engine"
-run/main_scene="res://Scenes/SandboxScene.tscn"
+run/main_scene="res://Scenes/MenuScene.tscn"
 config/icon="res://icon.png"
 
 [display]
 
 window/size/width=640
 window/size/resizable=false
+
+[global]
+
+process=false
+scene=false
 
 [input]
 

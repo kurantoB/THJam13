@@ -1,8 +1,20 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Tile Sets/NewTestTileset.tres" type="TileSet" id=1]
+[ext_resource path="res://Scenes/TriggerDialogue.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Resources/Dialogues/test_dialogue_1.tres" type="Resource" id=3]
+[ext_resource path="res://Scenes/DialogueManager.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/GameScene.gd" type="Script" id=5]
 [ext_resource path="res://Units/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scripts/UI/Dialogue.gd" type="Script" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 7 )
+text = [ "yep", "it is" ]
+
+[sub_resource type="RectangleShape2D" id=3]
 
 [node name="Scene" type="Node"]
 script = ExtResource( 5 )
@@ -10,6 +22,10 @@ tile_set_name = "TestTileSet"
 spawning = {
 Vector2( 12, 3 ): "NPC"
 }
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="DialogueManager" parent="UI" instance=ExtResource( 4 )]
 
 [node name="Stage" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -24,3 +40,17 @@ position = Vector2( 10, -150 )
 offset = Vector2( 0, -15 )
 smoothing_enabled = true
 smoothing_speed = 6.0
+
+[node name="TriggerDialogue" parent="." instance=ExtResource( 2 )]
+position = Vector2( 118, -92 )
+dialogue_resource = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerDialogue"]
+shape = SubResource( 1 )
+
+[node name="TriggerDialogue2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 182, -132 )
+dialogue_resource = SubResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerDialogue2"]
+shape = SubResource( 3 )

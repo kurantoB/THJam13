@@ -28,6 +28,8 @@ func _on_Player_area_entered(area: Area2D) -> void:
 		return
 	if area is Unit:
 		hit_from_area(area)
+	if area is TriggerDialogue:
+		area.trigger_dialogue()
 
 func hit_from_area(other_area : Area2D):
 	var collision_dir : int
