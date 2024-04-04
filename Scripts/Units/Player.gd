@@ -24,12 +24,12 @@ func handle_input(delta):
 	scene.handle_player_input()
 
 func _on_Player_area_entered(area: Area2D) -> void:
+	if area is TriggerDialogue:
+		area.trigger_dialogue()
 	if get_condition(Constants.UnitCondition.IS_INVINCIBLE, false):
 		return
 	if area is Unit:
 		hit_from_area(area)
-	if area is TriggerDialogue:
-		area.trigger_dialogue()
 
 func hit_from_area(other_area : Area2D):
 	var collision_dir : int

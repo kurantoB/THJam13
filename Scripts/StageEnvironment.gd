@@ -21,6 +21,12 @@ func _init(the_scene : GameScene):
 	init_stage_grid(stage)
 	stage.scale.x = Constants.SCALE_FACTOR
 	stage.scale.y = Constants.SCALE_FACTOR
+	
+	# scale the dialogue triggers
+	var dialogue_triggers = scene.get_node("DialogueTriggers") as Node2D
+	dialogue_triggers.scale.x = Constants.SCALE_FACTOR
+	dialogue_triggers.scale.y = Constants.SCALE_FACTOR
+	
 	# populate unit_collision_bounds
 	for unit_type in Constants.ENV_COLLIDERS.keys():
 		var initial_detect_pt = Constants.ENV_COLLIDERS[unit_type][0]

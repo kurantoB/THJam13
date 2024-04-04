@@ -110,17 +110,19 @@ offset = Vector2( 0, -15 )
 smoothing_enabled = true
 smoothing_speed = 6.0
 
-[node name="TriggerDialogue" parent="." instance=ExtResource( 2 )]
+[node name="DialogueTriggers" type="Node2D" parent="."]
+
+[node name="TriggerDialogue" parent="DialogueTriggers" instance=ExtResource( 2 )]
 position = Vector2( 118, -92 )
 post_interact_disable = true
 dialogue_resource = ExtResource( 3 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerDialogue"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DialogueTriggers/TriggerDialogue"]
 shape = SubResource( 1 )
 
-[node name="TriggerDialogue2" parent="." instance=ExtResource( 2 )]
+[node name="TriggerDialogue2" parent="DialogueTriggers" instance=ExtResource( 2 )]
 position = Vector2( 182, -132 )
 dialogue_resource = SubResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerDialogue2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DialogueTriggers/TriggerDialogue2"]
 shape = SubResource( 3 )
