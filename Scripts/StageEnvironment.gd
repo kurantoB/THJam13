@@ -34,6 +34,11 @@ func _init(the_scene : GameScene, dialogue_resources, dialogue_map_coords_list):
 	dialogue_triggers.scale.x = Constants.SCALE_FACTOR
 	dialogue_triggers.scale.y = Constants.SCALE_FACTOR
 	
+	# scale the stage coins
+	var stage_coins = scene.get_node("StageCoins") as Node2D
+	stage_coins.scale.x = Constants.SCALE_FACTOR
+	stage_coins.scale.y = Constants.SCALE_FACTOR
+	
 	# populate unit_collision_bounds
 	for unit_type in Constants.ENV_COLLIDERS.keys():
 		var initial_detect_pt = Constants.ENV_COLLIDERS[unit_type][0]
@@ -150,6 +155,8 @@ func init_stage_grid(tilemap : TileMap):
 						new_block.dialogue_resource = dialogue_resources[index]
 						break
 			scene.add_child(new_block)
+			new_block.set_scene(scene)
+			scene.blocks.append(new_block)
 			new_block.scale.x = Constants.SCALE_FACTOR
 			new_block.scale.y = Constants.SCALE_FACTOR
 			new_block.position.x = map_elem.x * Constants.GRID_SIZE * Constants.SCALE_FACTOR

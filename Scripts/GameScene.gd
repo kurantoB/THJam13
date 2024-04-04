@@ -28,6 +28,8 @@ var units = []
 var player : Player
 var player_cam : Camera2D
 
+var blocks = []
+
 # [pressed?, just pressed?, just released?]
 var input_table = {
 	Constants.PlayerInput.UP: [false, false, false],
@@ -82,6 +84,8 @@ func _process(delta):
 				unit.process_unit(delta, time_elapsed)
 				stage_env.interact(unit, delta)
 				unit.react(delta)
+			for block in blocks:
+				block.process_block(delta)
 			time_elapsed += delta
 
 func read_paused():
