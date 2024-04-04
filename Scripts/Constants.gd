@@ -127,11 +127,11 @@ const UNIT_CONDITION_TIMERS = {
 # Position relative to player's origin, list of directions to check for collision
 const ENV_COLLIDERS = {
 	UnitType.PLAYER: [
-		[Vector2(0, 1.5), [Direction.LEFT, Direction.UP, Direction.RIGHT]],
-		[Vector2(-.25, .25), [Direction.LEFT]],
-		[Vector2(.25, .25), [Direction.RIGHT]],
-		[Vector2(-.25, 1.25), [Direction.LEFT]],
-		[Vector2(.25, 1.25), [Direction.RIGHT]],
+		[Vector2(0, 1.125), [Direction.LEFT, Direction.UP, Direction.RIGHT]],
+		[Vector2(-.25, 0.6), [Direction.LEFT]],
+		[Vector2(.25, 0.6), [Direction.RIGHT]],
+		[Vector2(-.25, 1.125), [Direction.LEFT, Direction.UP]],
+		[Vector2(.25, 1.125), [Direction.RIGHT, Direction.UP]],
 		# contact with ground is at (0, 0)
 		[Vector2(0, 0), [Direction.LEFT, Direction.DOWN, Direction.RIGHT]],
 	],
@@ -158,7 +158,7 @@ const INPUT_MAP = {
 
 const TILE_SET_MAP_ELEMS = {
 	"TestTileSet": {
-		MapElemType.SQUARE: [0],
+		MapElemType.SQUARE: [0, 8, 9],
 		MapElemType.SLOPE_LEFT: [1],
 		MapElemType.SLOPE_RIGHT: [2],
 		MapElemType.SMALL_SLOPE_LEFT_1: [3],

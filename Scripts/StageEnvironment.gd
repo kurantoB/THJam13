@@ -5,8 +5,12 @@ const GameUtils = preload("res://Scripts/GameUtils.gd")
 const Constants = preload("res://Scripts/Constants.gd")
 const GameScene = preload("res://Scripts/GameScene.gd")
 const Unit = preload("res://Scripts/Unit.gd")
+const ItemBlockScene = preload("res://Scenes/Blocks/ItemBlock.tscn")
+const InfoBlockScene = preload("res://Scenes/Blocks/InfoBlock.tscn")
 
 var scene : GameScene
+var dialogue_resources
+var dialogue_map_coords_list
 
 var colliders = []
 # if unit's move vector has at least one of these directional components,
@@ -15,8 +19,11 @@ var collision_into_direction_arrays = [] # nested array
 
 var unit_collision_bounds = {} # maps unit type to [upper, lower, left, right]
 
-func _init(the_scene : GameScene):
+# dialogue_resources: array of dialogue resources, dialogue_map_coords_list: vector2 array of map locations
+func _init(the_scene : GameScene, dialogue_resources, dialogue_map_coords_list):
 	scene = the_scene
+	self.dialogue_resources = dialogue_resources
+	self.dialogue_map_coords_list = dialogue_map_coords_list
 	var stage : TileMap = scene.get_node("Stage")
 	init_stage_grid(stage)
 	stage.scale.x = Constants.SCALE_FACTOR
@@ -130,6 +137,24 @@ func init_stage_grid(tilemap : TileMap):
 				insert_grid_collider(stage_x, stage_y, Constants.Direction.UP, 1)
 			Constants.MapElemType.LEDGE:
 				insert_grid_collider(stage_x, stage_y, Constants.Direction.DOWN, 1)
+		# remove interactable blocks and replace them with objects
+		if cellv in [8, 9]:
+			tilemap.set_cell(map_elem.x, map_elem.y, 10)
+			var new_block
+			if cellv == 8:
+				new_block = ItemBlockScene.instance()
+			else:
+				new_block = InfoBlockScene.instance()
+				for index in dialogue_map_coords_list.size():
+					if stage_x == dialogue_map_coords_list[index].x and stage_y == dialogue_map_coords_list[index].y:
+						new_block.dialogue_resource = dialogue_resources[index]
+						break
+			scene.add_child(new_block)
+			new_block.scale.x = Constants.SCALE_FACTOR
+			new_block.scale.y = Constants.SCALE_FACTOR
+			new_block.position.x = map_elem.x * Constants.GRID_SIZE * Constants.SCALE_FACTOR
+			new_block.position.y = map_elem.y * Constants.GRID_SIZE * Constants.SCALE_FACTOR
+			new_block.origin_y = new_block.position.y
 
 func insert_grid_collider(stage_x, stage_y, direction : int, fractional_height : float):
 	var check_colliders = []

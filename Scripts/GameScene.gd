@@ -9,6 +9,8 @@ extends Node
 class_name GameScene
 
 export var tile_set_name: String
+export(Array, Resource) var dialogue_resources
+export(Array, Vector2) var dialogue_map_coords_list
 const Constants = preload("res://Scripts/Constants.gd")
 const Unit = preload("res://Scripts/Unit.gd")
 const UNIT_DIRECTORY = {
@@ -54,7 +56,7 @@ func _ready():
 	player_cam = player.get_node("Camera2D")
 	player_cam.make_current()
 	
-	stage_env = load("res://Scripts/StageEnvironment.gd").new(self)
+	stage_env = load("res://Scripts/StageEnvironment.gd").new(self, dialogue_resources, dialogue_map_coords_list)
 	player.get_node("Camera2D").make_current()
 	for spawning_key in spawning:
 		spawning_map[spawning_key] = null
