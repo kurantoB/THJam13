@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/PlayerRecoil.png-3f8702925aa2548c6daf6c3a606018d2.stex"
+path="res://.import/walk2.png-7d8c8b89a05dec47d53cacd0ba9fefe7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Graphics/Units/PlayerRecoil.png"
-dest_files=[ "res://.import/PlayerRecoil.png-3f8702925aa2548c6daf6c3a606018d2.stex" ]
+source_file="res://Graphics/Units/Player/walk2.png"
+dest_files=[ "res://.import/walk2.png-7d8c8b89a05dec47d53cacd0ba9fefe7.stex" ]
 
 [params]
 

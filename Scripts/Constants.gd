@@ -173,9 +173,9 @@ const UNIT_SPRITES = {
 	# Sprite-class: [Is-animation?, Nodes]
 	UnitType.PLAYER: {
 		SpriteClass.IDLE: [false, ["Idle"]],
-		SpriteClass.WALK: [false, ["Walk"]],
+		SpriteClass.WALK: [true, ["Walk"]],
 		SpriteClass.JUMP: [false, ["Jump1"]],
-		SpriteClass.DASH: [false, ["Dash"]]
+		SpriteClass.DASH: [true, ["Dash"]]
 	},
 	UnitType.NPC: {
 		SpriteClass.IDLE: [false, ["Idle"]],
