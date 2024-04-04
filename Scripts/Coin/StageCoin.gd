@@ -9,4 +9,5 @@ func _init():
 
 func _on_Area2D_area_entered(area):
 	if area is Player:
+		area.call("add_coin")
 		queue_free()

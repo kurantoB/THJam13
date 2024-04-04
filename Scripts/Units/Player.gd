@@ -3,6 +3,11 @@ extends Unit
 # Player-specific code
 class_name Player
 
+var lives : int = 5
+var coins : int = 0
+
+signal update_ui(lives, coins)
+
 func _init():
 	pos = Vector2(position.x / Constants.GRID_SIZE, -1 * position.y / Constants.GRID_SIZE)
 	position.x = position.x * Constants.SCALE_FACTOR
@@ -41,6 +46,7 @@ func hit_from_area(other_area : Area2D):
 
 func hit(dir : int):
 	.hit(dir)
+	lives
 	set_unit_condition_with_timer(Constants.UnitCondition.IS_INVINCIBLE)
 	start_flash()
 	set_unit_condition(Constants.UnitCondition.MOVING_STATUS, Constants.UnitMovingStatus.IDLE)
@@ -57,3 +63,9 @@ func dash():
 	target_move_speed = Constants.DASH_SPEED
 	if unit_conditions[Constants.UnitCondition.IS_ON_GROUND]:
 		set_sprite(Constants.SpriteClass.DASH)
+		
+func add_coin():
+	coins += 1
+	if coins % Constants.COINS_PER_LIFE == 0:
+		lives += 1
+	emit_signal("update_ui", lives, coins)

@@ -202,6 +202,7 @@ const ACCELERATION = 45
 const QUANTUM_DIST = 0.001
 const SPAWN_DISTANCE = 10
 const HURT_PAUSE_DURATION = .67 # seconds
+const COINS_PER_LIFE = 10
 
 # specialized constants
 const FLASH_CYCLE = 0.15

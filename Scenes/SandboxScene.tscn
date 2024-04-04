@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Tile Sets/NewTestTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scenes/TriggerDialogue.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Scripts/UI/Dialogue.gd" type="Script" id=7]
 [ext_resource path="res://Resources/Dialogues/tutorial.tres" type="Resource" id=8]
 [ext_resource path="res://Scenes/Coin/StageCoin.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scripts/UI/UI.gd" type="Script" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.5, 7.75 )
@@ -29,6 +30,7 @@ Vector2( 12, 3 ): "NPC"
 }
 
 [node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource( 10 )
 
 [node name="DialogueManager" parent="UI" instance=ExtResource( 4 )]
 
@@ -46,7 +48,7 @@ margin_right = 72.0
 margin_bottom = 62.0
 text = "x5"
 
-[node name="Score" type="Label" parent="UI"]
+[node name="Coins" type="Label" parent="UI"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -72.0
@@ -144,3 +146,11 @@ position = Vector2( 379, -213 )
 
 [node name="Coin3" parent="StageCoins" instance=ExtResource( 9 )]
 position = Vector2( 416, -189 )
+
+[node name="Area2D" parent="StageCoins" instance=ExtResource( 9 )]
+position = Vector2( 207, -130 )
+
+[node name="Area2D2" parent="StageCoins" instance=ExtResource( 9 )]
+position = Vector2( 312, -112 )
+
+[connection signal="update_ui" from="Player" to="UI" method="_on_Player_update_ui"]

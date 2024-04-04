@@ -42,6 +42,7 @@ func process_block(delta):
 				# Item block
 				var triggered_coin = TriggeredCoin.new()
 				scene.add_child(triggered_coin)
+				get_tree().get_nodes_in_group("Player")[0].add_coin()
 				triggered_coin.scale.x = Constants.SCALE_FACTOR
 				triggered_coin.scale.y = Constants.SCALE_FACTOR
 				triggered_coin.position.x = position.x + (Constants.GRID_SIZE * Constants.SCALE_FACTOR / 2)
