@@ -9,6 +9,7 @@ extends Node
 class_name GameScene
 
 export var tile_set_name: String
+export(Resource) var starting_dialogue_resource
 export(Array, Resource) var dialogue_resources
 export(Array, Vector2) var dialogue_map_coords_list
 const Constants = preload("res://Scripts/Constants.gd")
@@ -56,8 +57,6 @@ onready var anim : AnimationPlayer = get_node("AnimationPlayer")
 var rng = RandomNumberGenerator.new()
 
 var bg
-export var parallax_factor: float
-export var background_starting_x: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -75,7 +74,8 @@ func _ready():
 	bg = get_node("ParallaxBackground")
 	bg.scale.x = Constants.SCALE_FACTOR
 	bg.scale.y = Constants.SCALE_FACTOR
-	# bg.position = Vector2(background_starting_x, bg.position.y)
+	
+	get_tree().get_nodes_in_group("DialogueManager")[0].start_dialogue(starting_dialogue_resource)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

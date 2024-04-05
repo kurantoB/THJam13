@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/UI/Dialogue.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+text = [ "Reimu: Oh geez.. Is this another realm? Did this place always exist?", "Reimu: Hey, this kinda reminds me of the way Marisa described THAT incident.", "Reimu: Looks like I'm still in the Forest of Magic. Maybe she knows something. Now, where was her house again?" ]

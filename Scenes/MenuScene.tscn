@@ -120,7 +120,7 @@ margin_right = 62.0
 margin_bottom = 114.0
 grow_horizontal = 2
 custom_fonts/font = SubResource( 1 )
-text = "Super Marisa World"
+text = "King Mari World"
 
 [node name="PlayButton" type="Button" parent="."]
 anchor_left = 0.5

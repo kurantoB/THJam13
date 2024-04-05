@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/UI/Dialogue.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+text = [ "Press Z to advance the dialogue.", "Use the arrow keys to move, Z to jump.", "Hold X + direction to dash.", "You can hold Z to jump higher. Jumping on enemies while holding down Z will give you an even greater boost." ]

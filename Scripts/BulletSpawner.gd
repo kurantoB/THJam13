@@ -1,6 +1,6 @@
 extends Node2D
 
-export var frequency: int
+export var frequency: float
 export var speed: int
 export var type: int # 0: ->, 1: <-, 2: /|\, 3: \|/
 

@@ -4,4 +4,4 @@
 
 [resource]
 script = ExtResource( 1 )
-text = [ "Test dialogue 1", "Test dialogue 2" ]
+text = [ "Something's ahead... but you have yet to discover it.", "Check back later to find out!" ]

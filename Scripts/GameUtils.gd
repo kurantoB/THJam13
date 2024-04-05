@@ -52,6 +52,8 @@ static func get_b(pt : Vector2, m : float):
 	return pt.y - (m * pt.x)
 
 static func reangle_move(unit, angle_helper):
+	if angle_helper.empty():
+		return
 	# pythagoras
 	var unit_magnitude = sqrt(pow(unit.h_speed, 2) +  pow(unit.v_speed, 2))
 	var helper_magnitude = sqrt(pow(angle_helper[1].x - angle_helper[0].x, 2) +  pow(angle_helper[1].y - angle_helper[0].y, 2))
