@@ -259,3 +259,5 @@ position = Vector2( 496, -64 )
 frequency = 1
 speed = 8
 type = 2
+
+[connection signal="update_ui" from="Player" to="UI" method="_on_Player_update_ui"]
