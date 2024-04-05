@@ -2,7 +2,7 @@ extends Area2D
 
 var Constants = preload("res://Scripts/Constants.gd")
 
-const BULLET_RANGE = 9
+const BULLET_RANGE = 7
 const BULLET_SPEED = 12
 
 var x_speed = 0

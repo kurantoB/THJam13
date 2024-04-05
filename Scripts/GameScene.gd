@@ -109,10 +109,28 @@ func read_paused():
 func process_spawning():
 	for one_spawn in spawning.keys():
 		if spawning_map[one_spawn] != null:
+			var spawned = spawning_map[one_spawn]
+			if is_instance_valid(spawned):
+				if abs(spawned.pos.x - player.pos.x) >= Constants.DESPAWN_DISTANCE or abs(spawned.pos.y - player.pos.y) >= Constants.DESPAWN_DISTANCE:
+					spawned.delete_unit()
+					spawning_map[one_spawn] = null
 			continue
-		if abs(one_spawn[0] - player.pos.x) >= Constants.SPAWN_DISTANCE + 1 or abs(one_spawn[1] - player.pos.y) >= Constants.SPAWN_DISTANCE + 1:
+		if abs(one_spawn[0] - player.pos.x) > Constants.SPAWN_DISTANCE + 1 or abs(one_spawn[1] - player.pos.y) > Constants.SPAWN_DISTANCE + 1:
 			continue
-		if abs(one_spawn[0] - player.pos.x) <= Constants.SPAWN_DISTANCE:
+		var should_spawn = false
+		if (abs(one_spawn[0] - player.pos.x) > Constants.SPAWN_DISTANCE
+		and abs(one_spawn[0] - player.pos.x) < Constants.SPAWN_DISTANCE + 1):
+			# in x-axis spawning area
+			if abs(one_spawn[1] - player.pos.y) < Constants.SPAWN_DISTANCE + 1:
+				# in vertical range
+				should_spawn = true
+		if (abs(one_spawn[1] - player.pos.y) > Constants.SPAWN_DISTANCE
+		and abs(one_spawn[1] - player.pos.y) < Constants.SPAWN_DISTANCE + 1):
+			# in y-axis spawning area
+			if abs(one_spawn[0] - player.pos.x) < Constants.SPAWN_DISTANCE + 1:
+				#in horizontal range
+				should_spawn = true
+		if not should_spawn:
 			continue
 		# NPCUnit
 		var npc_scene = UNIT_DIRECTORY[Constants.UnitType.get(spawning[one_spawn])]
