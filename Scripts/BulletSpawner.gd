@@ -7,7 +7,7 @@ export var type: int # 0: ->, 1: <-, 2: /|\, 3: \|/
 const Bullet = preload("res://Scenes/Bullet.tscn")
 var Constants = preload("res://Scripts/Constants.gd")
 
-var scene: GameScene
+var scene
 var time_to_next
 
 func _ready():
@@ -28,7 +28,7 @@ func _process(delta):
 			0:
 				bullet.x_speed = speed
 			1:
-				bullet.x_origin = -speed
+				bullet.x_speed = -speed
 			2:
 				bullet.y_speed = speed
 			3:

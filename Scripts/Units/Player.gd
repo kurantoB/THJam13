@@ -35,11 +35,20 @@ func _on_Player_area_entered(area: Area2D) -> void:
 	if area is Bullet:
 		hit_from_area(area)
 	if area is NPCUnit:
-		pass
+		if (area.v_speed - v_speed > 0
+		and area.position.y > position.y
+		and abs(area.position.y - position.y) > abs(area.position.x - position.x)):
+			if scene.input_table[Constants.PlayerInput.GBA_A][scene.I_T_PRESSED]:
+				v_speed = Constants.ENEMY_BOOST_MAX_SPEED
+			else:
+				v_speed = Constants.ENEMY_BOOST_DEFAULT_SPEED
+			area.delete_unit()
+		else:
+			hit_from_area(area)
 
 func hit_from_area(other_area : Area2D):
 	var collision_dir : int
-	if other_area.position > position:
+	if other_area.position.x > position.x:
 		collision_dir = Constants.Direction.RIGHT
 	else:
 		collision_dir = Constants.Direction.LEFT

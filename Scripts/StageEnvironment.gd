@@ -3,12 +3,11 @@ extends Object
 
 const GameUtils = preload("res://Scripts/GameUtils.gd")
 const Constants = preload("res://Scripts/Constants.gd")
-const GameScene = preload("res://Scripts/GameScene.gd")
 const Unit = preload("res://Scripts/Unit.gd")
 const ItemBlockScene = preload("res://Scenes/Blocks/ItemBlock.tscn")
 const InfoBlockScene = preload("res://Scenes/Blocks/InfoBlock.tscn")
 
-var scene : GameScene
+var scene
 var dialogue_resources
 var dialogue_map_coords_list
 
@@ -20,7 +19,7 @@ var collision_into_direction_arrays = [] # nested array
 var unit_collision_bounds = {} # maps unit type to [upper, lower, left, right]
 
 # dialogue_resources: array of dialogue resources, dialogue_map_coords_list: vector2 array of map locations
-func _init(the_scene : GameScene, dialogue_resources, dialogue_map_coords_list):
+func _init(the_scene, dialogue_resources, dialogue_map_coords_list):
 	scene = the_scene
 	self.dialogue_resources = dialogue_resources
 	self.dialogue_map_coords_list = dialogue_map_coords_list
@@ -144,7 +143,7 @@ func init_stage_grid(tilemap : TileMap):
 				insert_grid_collider(stage_x, stage_y, Constants.Direction.DOWN, 1)
 		# remove interactable blocks and replace them with objects
 		if cellv in [8, 9]:
-			tilemap.set_cell(map_elem.x, map_elem.y, 10)
+			tilemap.set_cell(map_elem.x, map_elem.y, 23)
 			var new_block
 			if cellv == 8:
 				new_block = ItemBlockScene.instance()

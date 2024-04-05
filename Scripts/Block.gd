@@ -47,6 +47,13 @@ func process_block(delta):
 				triggered_coin.scale.y = Constants.SCALE_FACTOR
 				triggered_coin.position.x = position.x + (Constants.GRID_SIZE * Constants.SCALE_FACTOR / 2)
 				triggered_coin.position.y = position.y
+			var map_x = position.x / Constants.GRID_SIZE / Constants.SCALE_FACTOR
+			var map_y = -position.y / Constants.GRID_SIZE / Constants.SCALE_FACTOR
+			for npc in scene.units:
+				if not npc is NPCUnit:
+					continue
+				if floor(npc.pos.x) == map_x and floor(npc.pos.y) == map_y and npc.get_condition(Constants.UnitCondition.IS_ON_GROUND, false):
+					npc.delete_unit()
 	if bump_timer > 0:
 		var displacement = BUMP_DISTANCE - abs(BUMP_DURATION / 2 - bump_timer) / (BUMP_DURATION / 2) * BUMP_DISTANCE
 		position.y = origin_y - displacement * Constants.GRID_SIZE * Constants.SCALE_FACTOR

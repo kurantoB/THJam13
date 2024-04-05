@@ -1,20 +1,20 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Scripts/Units/BlueGreenFairy.gd" type="Script" id=1]
-[ext_resource path="res://Graphics/Units/Fairies/BlueFairyIdle.png" type="Texture" id=2]
-[ext_resource path="res://Graphics/Animations/BlueFairyWalk.tres" type="SpriteFrames" id=3]
-[ext_resource path="res://Graphics/Units/Fairies/BlueFairyJump.png" type="Texture" id=4]
+[ext_resource path="res://Scripts/Units/RedYellowFairy.gd" type="Script" id=1]
+[ext_resource path="res://Graphics/Units/Fairies/YellowFairyJump.png" type="Texture" id=2]
+[ext_resource path="res://Graphics/Units/Fairies/YellowFairyIdle.png" type="Texture" id=3]
+[ext_resource path="res://Graphics/Animations/YellowFairyWalk.tres" type="SpriteFrames" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 6, 9 )
 
-[node name="BlueFairy" type="Area2D"]
+[node name="YellowFairy" type="Area2D"]
 collision_mask = 2
 script = ExtResource( 1 )
-unit_type = 2
-tick_duration = 1.5
+unit_type = 5
+tick_duration = 1.2
 action_sequence_map = {
-[ [ "MOVE", "JUMP", "MOVE" ], [ 0.0, 1.0, 1.0 ] ]: 1
+[ [ "JUMP", "MOVE", "FIRE", "FIRE" ], [ 0.0, 0.0, 0.8, 1.6 ] ]: 1
 }
 action_duration_map = {
 "JUMP": 0.2,
@@ -28,15 +28,15 @@ shape = SubResource( 1 )
 
 [node name="Idle" type="Sprite" parent="."]
 visible = false
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 offset = Vector2( 0, -12 )
 
 [node name="Jump" type="Sprite" parent="."]
 visible = false
-texture = ExtResource( 4 )
+texture = ExtResource( 2 )
 offset = Vector2( 0, -12 )
 
 [node name="Walk" type="AnimatedSprite" parent="."]
 visible = false
-frames = ExtResource( 3 )
+frames = ExtResource( 4 )
 offset = Vector2( 0, -12 )

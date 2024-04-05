@@ -16,6 +16,9 @@ const Unit = preload("res://Scripts/Unit.gd")
 const UNIT_DIRECTORY = {
 	Constants.UnitType.NPC: preload("res://Units/NPC.tscn"),
 	Constants.UnitType.BLUE_FAIRY: preload("res://Units/BlueFairy.tscn"),
+	Constants.UnitType.GREEN_FAIRY: preload("res://Units/GreenFairy.tscn"),
+	Constants.UnitType.RED_FAIRY: preload("res://Units/RedFairy.tscn"),
+	Constants.UnitType.YELLOW_FAIRY: preload("res://Units/YellowFairy.tscn"),
 }
 
 # positions to unit string
@@ -52,6 +55,10 @@ onready var anim : AnimationPlayer = get_node("AnimationPlayer")
 
 var rng = RandomNumberGenerator.new()
 
+var bg
+export var parallax_factor: float
+export var background_starting_x: int
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	units.append(get_node("Player"))
@@ -64,6 +71,11 @@ func _ready():
 	player.get_node("Camera2D").make_current()
 	for spawning_key in spawning:
 		spawning_map[spawning_key] = null
+	
+	bg = get_node("ParallaxBackground")
+	bg.scale.x = Constants.SCALE_FACTOR
+	bg.scale.y = Constants.SCALE_FACTOR
+	# bg.position = Vector2(background_starting_x, bg.position.y)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

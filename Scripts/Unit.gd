@@ -313,3 +313,7 @@ func start_flash():
 func invincibility_ended():
 	# implemented in subclass
 	pass
+
+func delete_unit():
+	scene.units.erase(self)
+	queue_free()
