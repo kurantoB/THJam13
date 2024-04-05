@@ -1,6 +1,7 @@
 enum UnitType {
 	PLAYER,
 	NPC,
+	BLUE_FAIRY
 }
 
 enum ActionType {
@@ -75,12 +76,17 @@ const UNIT_TYPE_ACTIONS = {
 	UnitType.NPC: [
 		ActionType.MOVE,
 	],
+	UnitType.BLUE_FAIRY: [
+		ActionType.MOVE,
+		ActionType.JUMP
+	]
 }
 
 # in seconds
 const ACTION_TIMERS = {
 	UnitType.PLAYER: {},
-	UnitType.NPC: {}
+	UnitType.NPC: {},
+	UnitType.BLUE_FAIRY: {}
 }
 
 const UNIT_TYPE_CURRENT_ACTIONS = {
@@ -90,6 +96,10 @@ const UNIT_TYPE_CURRENT_ACTIONS = {
 	],
 	UnitType.NPC: [
 		UnitCurrentAction.IDLE,
+	],
+	UnitType.BLUE_FAIRY: [
+		UnitCurrentAction.IDLE,
+		UnitCurrentAction.JUMPING,
 	],
 }
 
@@ -106,6 +116,11 @@ const UNIT_TYPE_CONDITIONS = {
 		UnitCondition.IS_ON_GROUND: false,
 		UnitCondition.MOVING_STATUS: UnitMovingStatus.IDLE,
 	},
+	UnitType.BLUE_FAIRY: {
+		UnitCondition.CURRENT_ACTION: UnitCurrentAction.IDLE,
+		UnitCondition.IS_ON_GROUND: false,
+		UnitCondition.MOVING_STATUS: UnitMovingStatus.IDLE,
+	}
 }
 
 # in seconds
@@ -113,7 +128,10 @@ const CURRENT_ACTION_TIMERS = {
 	UnitType.PLAYER: {
 		UnitCurrentAction.JUMPING: 0.2
 	},
-	UnitType.NPC: {}
+	UnitType.NPC: {},
+	UnitType.BLUE_FAIRY: {
+		UnitCurrentAction.JUMPING: 0.2
+	}
 }
 
 const UNIT_CONDITION_TIMERS = {
@@ -122,6 +140,7 @@ const UNIT_CONDITION_TIMERS = {
 		UnitCondition.IS_INVINCIBLE: [2.5, true, false],
 	},
 	UnitType.NPC: {},
+	UnitType.BLUE_FAIRY: {},
 }
 
 # Position relative to player's origin, list of directions to check for collision
@@ -141,6 +160,12 @@ const ENV_COLLIDERS = {
 		[Vector2(.25, .25), [Direction.RIGHT]],
 		[Vector2(-.25, 1.25), [Direction.LEFT]],
 		[Vector2(.25, 1.25), [Direction.RIGHT]],
+		[Vector2(0, 0), [Direction.LEFT, Direction.DOWN, Direction.RIGHT]],
+	],
+	UnitType.BLUE_FAIRY: [
+		[Vector2(0, 1.125), [Direction.LEFT, Direction.UP, Direction.RIGHT]],
+		[Vector2(-.25, 0.563), [Direction.LEFT]],
+		[Vector2(.25, 0.563), [Direction.RIGHT]],
 		[Vector2(0, 0), [Direction.LEFT, Direction.DOWN, Direction.RIGHT]],
 	],
 }
@@ -174,7 +199,7 @@ const UNIT_SPRITES = {
 	UnitType.PLAYER: {
 		SpriteClass.IDLE: [false, ["Idle"]],
 		SpriteClass.WALK: [true, ["Walk"]],
-		SpriteClass.JUMP: [false, ["Jump1"]],
+		SpriteClass.JUMP: [false, ["Jump"]],
 		SpriteClass.DASH: [true, ["Dash"]]
 	},
 	UnitType.NPC: {
@@ -182,16 +207,23 @@ const UNIT_SPRITES = {
 		SpriteClass.WALK: [true, ["Walk"]],
 		SpriteClass.JUMP: [false, ["Jump2"]],
 	},
+	UnitType.BLUE_FAIRY: {
+		SpriteClass.IDLE: [false, ["Idle"]],
+		SpriteClass.WALK: [true, ["Walk"]],
+		SpriteClass.JUMP: [false, ["Jump"]],
+	},
 }
 
 const UNIT_TYPE_MOVE_SPEEDS = {
 	UnitType.PLAYER: 6,
 	UnitType.NPC: 3,
+	UnitType.BLUE_FAIRY: 4,
 }
 const DASH_SPEED = 12
 
 const UNIT_TYPE_JUMP_SPEEDS = {
 	UnitType.PLAYER: 13,
+	UnitType.BLUE_FAIRY: 13
 }
 
 const SCALE_FACTOR = 2.5

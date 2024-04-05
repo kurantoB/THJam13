@@ -27,7 +27,7 @@ tile_set_name = "TestTileSet"
 dialogue_resources = [ ExtResource( 8 ) ]
 dialogue_map_coords_list = [ Vector2( 1, 2 ) ]
 spawning = {
-Vector2( 12, 3 ): "NPC"
+Vector2( 12, 3 ): "BLUE_FAIRY"
 }
 
 [node name="UI" type="CanvasLayer" parent="."]

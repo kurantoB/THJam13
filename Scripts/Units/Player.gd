@@ -35,8 +35,10 @@ func _on_Player_area_entered(area: Area2D) -> void:
 		area.trigger_dialogue()
 	if get_condition(Constants.UnitCondition.IS_INVINCIBLE, false):
 		return
-	if area is Unit or area is Bullet:
+	if area is Bullet:
 		hit_from_area(area)
+	if area is NPCUnit:
+		pass
 
 func hit_from_area(other_area : Area2D):
 	var collision_dir : int

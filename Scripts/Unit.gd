@@ -53,7 +53,7 @@ func _ready():
 		for node_name in Constants.UNIT_SPRITES[unit_type][sprite_class][1]:
 			sprite_class_nodes[sprite_class].append(get_node(node_name))
 	
-	pos = Vector2(position.x / Constants.GRID_SIZE, -1 * position.y / Constants.GRID_SIZE)
+	pos = Vector2(position.x / Constants.GRID_SIZE, -1 * position.y / Constants.GRID_SIZE) / Constants.SCALE_FACTOR
 	position.x = position.x * Constants.SCALE_FACTOR
 	position.y = position.y * Constants.SCALE_FACTOR
 	scale.x = Constants.SCALE_FACTOR

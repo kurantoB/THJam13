@@ -27,7 +27,7 @@ visible = false
 frames = ExtResource( 3 )
 offset = Vector2( 0, -12 )
 
-[node name="Jump1" type="Sprite" parent="."]
+[node name="Jump" type="Sprite" parent="."]
 visible = false
 texture = ExtResource( 5 )
 offset = Vector2( 0, -12 )

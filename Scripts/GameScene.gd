@@ -15,6 +15,7 @@ const Constants = preload("res://Scripts/Constants.gd")
 const Unit = preload("res://Scripts/Unit.gd")
 const UNIT_DIRECTORY = {
 	Constants.UnitType.NPC: preload("res://Units/NPC.tscn"),
+	Constants.UnitType.BLUE_FAIRY: preload("res://Units/BlueFairy.tscn"),
 }
 
 # positions to unit string
