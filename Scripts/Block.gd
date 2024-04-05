@@ -47,6 +47,7 @@ func process_block(delta):
 				triggered_coin.scale.y = Constants.SCALE_FACTOR
 				triggered_coin.position.x = position.x + (Constants.GRID_SIZE * Constants.SCALE_FACTOR / 2)
 				triggered_coin.position.y = position.y
+				get_node("/root/Scene/SFX/Coin").play()
 			var map_x = position.x / Constants.GRID_SIZE / Constants.SCALE_FACTOR
 			var map_y = -position.y / Constants.GRID_SIZE / Constants.SCALE_FACTOR
 			for npc in scene.units:

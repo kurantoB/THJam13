@@ -174,6 +174,8 @@ func jump():
 	if (unit_conditions[Constants.UnitCondition.IS_ON_GROUND]):
 		# hit ground
 		v_speed = max(Constants.UNIT_TYPE_JUMP_SPEEDS[unit_type], v_speed)
+		if unit_type == 0:
+			get_node("/root/Scene/SFX/Jump").play()
 	else:
 		# airborne
 		v_speed = max(Constants.UNIT_TYPE_JUMP_SPEEDS[unit_type], move_toward(v_speed, Constants.UNIT_TYPE_JUMP_SPEEDS[unit_type], get_process_delta_time() * Constants.GRAVITY))

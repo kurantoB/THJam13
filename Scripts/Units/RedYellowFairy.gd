@@ -45,5 +45,6 @@ func execute_actions(delta):
 					else:
 						bullet.x_speed = -1 * BULLET_SPEED
 						bullet.y_speed = 0
+				get_node("/root/Scene/SFX/Shoot").play()
 			_:
 				pass

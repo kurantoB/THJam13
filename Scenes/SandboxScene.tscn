@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Tile Sets/NewTestTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scenes/TriggerDialogue.tscn" type="PackedScene" id=2]
@@ -16,6 +16,11 @@
 [ext_resource path="res://Graphics/Objects/Coins/Coin1_0.png" type="Texture" id=14]
 [ext_resource path="res://Graphics/BG.png" type="Texture" id=15]
 [ext_resource path="res://Resources/Dialogues/Intro.tres" type="Resource" id=16]
+[ext_resource path="res://Audio/Coin.wav" type="AudioStream" id=17]
+[ext_resource path="res://Audio/Explode.wav" type="AudioStream" id=18]
+[ext_resource path="res://Audio/Fire.wav" type="AudioStream" id=19]
+[ext_resource path="res://Audio/Jump.wav" type="AudioStream" id=20]
+[ext_resource path="res://Audio/laser01.wav" type="AudioStream" id=21]
 
 [sub_resource type="Animation" id=6]
 resource_name = "DeathFade"
@@ -222,6 +227,7 @@ tile_data = PoolIntArray( -1638294, 10, 0, -1638293, 10, 0, -1572758, 0, 0, -157
 
 [node name="Player" parent="." instance=ExtResource( 6 )]
 position = Vector2( 10, -150 )
+unit_type = 0
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 offset = Vector2( 0, -15 )
@@ -331,5 +337,22 @@ position = Vector2( 1344, -144 )
 frequency = 1.0
 speed = 8
 type = 2
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="Coin" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 17 )
+
+[node name="DefeatEnemy" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 18 )
+
+[node name="Shoot" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 19 )
+
+[node name="Jump" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 20 )
+
+[node name="Pichun" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 21 )
 
 [connection signal="update_ui" from="Player" to="UI" method="_on_Player_update_ui"]

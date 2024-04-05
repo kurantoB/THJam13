@@ -43,6 +43,7 @@ func _on_Player_area_entered(area: Area2D) -> void:
 			else:
 				v_speed = Constants.ENEMY_BOOST_DEFAULT_SPEED
 			area.delete_unit()
+			get_node("/root/Scene/SFX/DefeatEnemy").play()
 		else:
 			hit_from_area(area)
 
@@ -53,6 +54,7 @@ func hit_from_area(other_area : Area2D):
 	else:
 		collision_dir = Constants.Direction.LEFT
 	hit(collision_dir)
+	get_node("/root/Scene/SFX/Pichun").play()
 
 func hit(dir : int):
 	.hit(dir)
