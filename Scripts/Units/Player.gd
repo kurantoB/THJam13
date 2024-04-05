@@ -5,9 +5,6 @@ class_name Player
 
 const Bullet = preload("res://Scripts/Bullet.gd")
 
-var lives : int = 2
-var coins : int = 0
-
 signal update_ui(lives, coins)
 
 func _init():
@@ -48,10 +45,10 @@ func hit_from_area(other_area : Area2D):
 
 func hit(dir : int):
 	.hit(dir)
-	lives -= 1
-	if lives == 0:
-		# Game Over
-		return
+	PlayerManager.lives -= 1
+	emit_signal("update_ui", PlayerManager.lives, PlayerManager.coins)
+	if PlayerManager.lives == 0:
+		get_tree().current_scene.handle_death()
 	set_unit_condition_with_timer(Constants.UnitCondition.IS_INVINCIBLE)
 	start_flash()
 	set_unit_condition(Constants.UnitCondition.MOVING_STATUS, Constants.UnitMovingStatus.IDLE)
@@ -70,7 +67,7 @@ func dash():
 		set_sprite(Constants.SpriteClass.DASH)
 		
 func add_coin():
-	coins += 1
-	if coins % Constants.COINS_PER_LIFE == 0:
-		lives += 1
-	emit_signal("update_ui", lives, coins)
+	PlayerManager.coins += 1
+	if PlayerManager.coins % Constants.COINS_PER_LIFE == 0:
+		PlayerManager.lives += 1
+	emit_signal("update_ui", PlayerManager.lives, PlayerManager.coins)

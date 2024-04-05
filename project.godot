@@ -54,6 +54,10 @@ config/name="Kinematically Reinterpreted Implementation Needing Godot Engine"
 run/main_scene="res://Scenes/MenuScene.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+PlayerManager="*res://Scripts/PlayerManager.gd"
+
 [display]
 
 window/size/width=640
