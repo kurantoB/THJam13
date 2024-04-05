@@ -48,6 +48,7 @@ const I_T_JUST_RELEASED : int = 2
 var stage_env
 
 var time_elapsed : float = 0
+onready var anim : AnimationPlayer = get_node("AnimationPlayer")
 
 var rng = RandomNumberGenerator.new()
 
@@ -165,3 +166,13 @@ func handle_player_input():
 		and player.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]
 		and input_table[Constants.PlayerInput.GBA_A][I_T_JUST_PRESSED])):
 			player.set_action(Constants.ActionType.JUMP)
+
+func handle_death():
+	anim.play("DeathFade")
+	get_tree().paused = true
+	
+func restart_game():
+	PlayerManager.lives = 3
+	PlayerManager.coins = 0
+	get_tree().paused = false
+	get_tree().change_scene("res://Scenes/MenuScene.tscn")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Tile Sets/NewTestTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scenes/TriggerDialogue.tscn" type="PackedScene" id=2]
@@ -11,6 +11,76 @@
 [ext_resource path="res://Scenes/Coin/StageCoin.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scripts/UI/UI.gd" type="Script" id=10]
 [ext_resource path="res://Scenes/BulletSpawner.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Theme/PixeloidSans-mLxMm.ttf" type="DynamicFontData" id=12]
+[ext_resource path="res://Graphics/Units/Player/idle.png" type="Texture" id=13]
+[ext_resource path="res://Graphics/Objects/Coins/Coin1_0.png" type="Texture" id=14]
+
+[sub_resource type="Animation" id=6]
+resource_name = "DeathFade"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("UI/DeathScreen:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("UI/DeathScreen")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "show"
+} ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "restart_game"
+} ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("UI/DeathScreen:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ) ]
+}
+
+[sub_resource type="DynamicFont" id=4]
+size = 20
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 20
+font_data = ExtResource( 12 )
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.5, 7.75 )
@@ -30,6 +100,11 @@ spawning = {
 Vector2( 12, 3 ): "BLUE_FAIRY"
 }
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+pause_mode = 2
+anims/DeathFade = SubResource( 6 )
+anims/RESET = SubResource( 7 )
+
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 10 )
 
@@ -40,14 +115,32 @@ margin_left = 32.0
 margin_top = 32.0
 margin_right = 72.0
 margin_bottom = 46.0
-text = "Murei"
+custom_fonts/font = SubResource( 4 )
+text = "Reimu"
+
+[node name="ReimuImg" type="TextureRect" parent="UI"]
+margin_left = 32.0
+margin_top = 56.0
+margin_right = 64.0
+margin_bottom = 88.0
+texture = ExtResource( 13 )
+expand = true
 
 [node name="CharacterLives" type="Label" parent="UI"]
-margin_left = 32.0
-margin_top = 48.0
-margin_right = 72.0
-margin_bottom = 62.0
-text = "x5"
+margin_left = 64.0
+margin_top = 64.0
+margin_right = 104.0
+margin_bottom = 89.0
+custom_fonts/font = SubResource( 5 )
+text = "x3"
+
+[node name="CoinImg" type="TextureRect" parent="UI"]
+margin_left = 527.0
+margin_top = 26.0
+margin_right = 567.0
+margin_bottom = 66.0
+texture = ExtResource( 14 )
+expand = true
 
 [node name="Coins" type="Label" parent="UI"]
 anchor_left = 1.0
@@ -56,6 +149,7 @@ margin_left = -72.0
 margin_top = 32.0
 margin_right = -32.0
 margin_bottom = 46.0
+custom_fonts/font = SubResource( 5 )
 text = "x 0"
 
 [node name="StartMenu" type="Control" parent="UI"]
@@ -99,10 +193,12 @@ margin_right = 108.0
 margin_bottom = 72.0
 text = "Exit"
 
-[node name="DeathScreen" type="Control" parent="UI"]
+[node name="DeathScreen" type="ColorRect" parent="UI"]
+pause_mode = 2
 visible = false
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 640.0
+margin_bottom = 600.0
+color = Color( 0, 0, 0, 0 )
 
 [node name="Stage" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
