@@ -15,6 +15,8 @@ func _init():
 	DECELERATION *= Constants.GRID_SIZE * Constants.SCALE_FACTOR
 
 func _physics_process(delta):
+	if get_node("/root/Scene").paused or get_node("/root/Scene").hurt_pause_timer > 0:
+		return
 	if current_velocity == 0:
 		queue_free()
 	position.y -= current_velocity

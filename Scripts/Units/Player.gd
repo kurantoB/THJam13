@@ -3,7 +3,9 @@ extends Unit
 # Player-specific code
 class_name Player
 
-var lives : int = 5
+const Bullet = preload("res://Scripts/Bullet.gd")
+
+var lives : int = 2
 var coins : int = 0
 
 signal update_ui(lives, coins)
@@ -33,7 +35,7 @@ func _on_Player_area_entered(area: Area2D) -> void:
 		area.trigger_dialogue()
 	if get_condition(Constants.UnitCondition.IS_INVINCIBLE, false):
 		return
-	if area is Unit:
+	if area is Unit or area is Bullet:
 		hit_from_area(area)
 
 func hit_from_area(other_area : Area2D):
@@ -46,7 +48,10 @@ func hit_from_area(other_area : Area2D):
 
 func hit(dir : int):
 	.hit(dir)
-	lives
+	lives -= 1
+	if lives == 0:
+		# Game Over
+		return
 	set_unit_condition_with_timer(Constants.UnitCondition.IS_INVINCIBLE)
 	start_flash()
 	set_unit_condition(Constants.UnitCondition.MOVING_STATUS, Constants.UnitMovingStatus.IDLE)

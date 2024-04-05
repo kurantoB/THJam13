@@ -342,3 +342,15 @@ func unit_env_collider_early_exit(env_collider_directions, collision_into_direct
 			if env_collider_direction == collision_into_direction:
 				return false
 	return true
+
+func stage_collision(x: float, y: float, downward: bool):
+	var tilemap : TileMap = scene.get_node("Stage")
+	for map_elem in tilemap.get_used_cells():
+		var stage_x = floor(tilemap.map_to_world(map_elem).x / Constants.GRID_SIZE)
+		var stage_y = floor(-1 * tilemap.map_to_world(map_elem).y / Constants.GRID_SIZE) - 1
+		if stage_x == floor(x) and stage_y == floor(y):
+			if not tilemap.get_cellv(map_elem) in Constants.TILE_SET_MAP_ELEMS[scene.tile_set_name][Constants.MapElemType.LEDGE]:
+				return true
+			if tilemap.get_cellv(map_elem) in Constants.TILE_SET_MAP_ELEMS[scene.tile_set_name][Constants.MapElemType.LEDGE] and downward:
+				return true
+	return false
